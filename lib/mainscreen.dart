@@ -7,9 +7,9 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: ResponsiveWebSite(
-          mobile: HomeScreen(), tablet: HomeScreen(), desktop: HomeScreen()),
+          mobile: HomeScreen(index: 0), tablet: HomeScreen(index: 0), desktop: HomeScreen(index: 0,)),
     );
   }
 }
