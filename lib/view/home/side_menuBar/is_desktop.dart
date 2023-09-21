@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_website/view/colors/colors.dart';
 import 'package:hostel_management_website/view/fonts/google_poppins.dart';
-import 'package:hostel_management_website/view/home/home_screen.dart';
 import 'package:hostel_management_website/view/home/side_menuBar/widget/costecDujologo.dart';
 
 class WebSideBaeWidget extends StatelessWidget {
@@ -23,16 +22,19 @@ class WebSideBaeWidget extends StatelessWidget {
           child: Container(
             color: const Color.fromARGB(255, 26, 47, 90),
             child: ListView(
-              children: const [
-                CostechDujoLogoWidget(),
-                SideBarMenuItemsWidget()
+              children: [
+                const CostechDujoLogoWidget(),
+                SideBarMenuItemsWidget(
+                  selectedIndex: index,
+                  onTap: (index) {},
+                )
               ],
             ),
           ),
         ),
         Expanded(
           flex: 6,
-          child: pages[index],
+          child: Container(),
         )
       ],
     );
@@ -40,7 +42,11 @@ class WebSideBaeWidget extends StatelessWidget {
 }
 
 class SideBarMenuItemsWidget extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onTap;
   const SideBarMenuItemsWidget({
+    required this.selectedIndex,
+    required this.onTap,
     super.key,
   });
 
@@ -51,29 +57,33 @@ class SideBarMenuItemsWidget extends StatelessWidget {
       height: 800,
       child: ListView.separated(
           itemBuilder: (context, index) {
-            return ListTile(
-              onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context) {
-                    return HomeScreen(index: index);
-                  },
-                ));
-              },
-              iconColor: cWhite.withOpacity(0.6),
-              leading: Icon(
-                sideMenuICons[index],
-                size: 13.2,
-              ),
-              title: GooglePoppinsWidgets(
-                text: sideMenu[index],
-                fontsize: 12.5,
-                color: cWhite.withOpacity(0.6),
+            return ColoredBox(
+              color:
+                  selectedIndex == index ? themeColorBlue : Colors.transparent,
+              child: ListTile(
+                contentPadding: const EdgeInsets.only(
+                  left: 10,
+                ),
+
+                onTap: () {
+                  onTap.call(index);
+                },
+                iconColor: cWhite.withOpacity(0.6),
+                leading: Icon(
+                  sideMenuICons[index],
+                  size: 13.2,
+                ),
+                title: GooglePoppinsWidgets(
+                  text: sideMenu[index],
+                  fontsize: 12.5,
+                  color: cWhite.withOpacity(0.6),
+                ),
               ),
             );
           },
           separatorBuilder: (context, index) {
             return const SizedBox(
-              height: 05,
+              height: 00,
             );
           },
           itemCount: sideMenu.length),
@@ -108,66 +118,4 @@ List<IconData> sideMenuICons = [
   Icons.keyboard_alt_outlined,
   Icons.settings,
   Icons.gavel,
-];
-List<Widget> pages = [
-  Container(
-    child: Center(
-      child: Text(sideMenu[0]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[1]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[2]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[3]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[4]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[5]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[6]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[7]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[8]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[9]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[10]),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: Text(sideMenu[11]),
-    ),
-  ),
 ];

@@ -1,43 +1,106 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_management_website/view/colors/colors.dart';
 import 'package:hostel_management_website/view/home/side_menuBar/is_desktop.dart';
 import 'package:hostel_management_website/view/home/side_menuBar/widget/costecDujologo.dart';
-import 'package:hostel_management_website/view/widgets/responsive/responsive.dart';
+import 'package:sidebar_drawer/sidebar_drawer.dart';
 
-class HomeScreen extends StatelessWidget {
-  int index;
-   HomeScreen({
-    required this.index,
-    super.key});
+// ignore: must_be_immutable
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: ResponsiveWebSite.isDesktop(context) ? null : AppBar(),
-        drawer: ResponsiveWebSite.isDesktop(context)
-            ? null
-            : Drawer(
-                surfaceTintColor: cBlack,
-                backgroundColor: cWhite,
-                child: ListView(
-                  children: const [
-                    CostechDujoLogoWidget(),
-                    SideBarMenuItemsWidget(),
-                  ],
-                ),
-              ),
-        body: SafeArea(
-          child: ResponsiveWebSite.isDesktop(context)
-              ? WebSideBaeWidget(
-                  index: index,
-                )
-              : Center(
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    color: Colors.amber,
-                  ),
-                ),
-        ));
+      body: SidebarDrawer(
+        body: Column(
+          children: [
+            AppBar(
+              leading: const DrawerIcon(),
+            ),
+            pages[selectedIndex]
+          ],
+        ),
+        drawer: ListView(children: [
+          const CostechDujoLogoWidget(),
+          SideBarMenuItemsWidget(
+            selectedIndex: selectedIndex,
+            onTap: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+          ),
+        ]),
+      ),
+    );
   }
 }
+
+List<Widget> pages = [
+  Container(
+    child: Center(
+      child: Text(sideMenu[0]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[1]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[2]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[3]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[4]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[5]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[6]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[7]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[8]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[9]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[10]),
+    ),
+  ),
+  Container(
+    child: Center(
+      child: Text(sideMenu[11]),
+    ),
+  ),
+];
